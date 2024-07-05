@@ -9,6 +9,7 @@
     <script type="text/javascript" src="osql.js"></script>
 
     <script>
+        var status = true;
         function buttonMakePressed() {
             var x_rightleg = document.getElementById('x_rightleg').value;
             var y_rightleg = document.getElementById('y_rightleg').value;
@@ -29,73 +30,94 @@
             var x_face = document.getElementById('x_face').value;
             var y_face = document.getElementById('y_face').value;
 
-            var canvas = document.getElementById('pinguCanvas');
-            var ctx = canvas.getContext('2d');
 
-            // 背景を白く塗る
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            status = blank_message();
+            if (blank_message() == false) {
+                window.alert("全ての項目を入力してください");
+            }
+            else {
+                var canvas = document.getElementById('pinguCanvas');
+                var ctx = canvas.getContext('2d');
 
-            // ピングーの体 (胴体)
-            ctx.fillStyle = 'black';
-            ctx.beginPath();
-            ctx.ellipse(x_body, y_body, 90, 120, 0, 0, Math.PI * 2);
-            ctx.fill();
+                // 背景を白く塗る
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // ピングーの腹部
-            ctx.fillStyle = 'white';
-            ctx.beginPath();
-            ctx.ellipse(x_body, y_body, 70, 100, 0, 0, Math.PI * 2);
-            ctx.fill();
+                // ピングーの体 (胴体)
+                ctx.fillStyle = 'black';
+                ctx.beginPath();
+                ctx.ellipse(x_body, y_body, 90, 120, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-            // ピングーの頭
-            ctx.fillStyle = 'black';
-            ctx.beginPath();
-            ctx.ellipse(x_face, y_face, 70, 55, 0, 0, Math.PI * 2);
-            ctx.fill();
+                // ピングーの腹部
+                ctx.fillStyle = 'white';
+                ctx.beginPath();
+                ctx.ellipse(x_body, y_body, 70, 100, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-            // ピングーの足
-            ctx.fillStyle = 'orange';
-            ctx.beginPath();
-            ctx.ellipse(x_leftleg, y_leftleg, 45, 25, 0, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.beginPath();
-            ctx.ellipse(x_rightleg, y_rightleg, 45, 25, 0, 0, Math.PI * 2);
-            ctx.fill();
+                // ピングーの頭
+                ctx.fillStyle = 'black';
+                ctx.beginPath();
+                ctx.ellipse(x_face, y_face, 70, 55, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-            // ピングーの腕
-            ctx.fillStyle = 'black';
-            ctx.beginPath();
-            ctx.ellipse(x_leftarm, y_leftarm, 25, 90, Math.PI / 4, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.beginPath();
-            ctx.ellipse(x_rightarm, y_rightarm, 25, 90, -Math.PI / 4, 0, Math.PI * 2);
-            ctx.fill();
+                // ピングーの足
+                ctx.fillStyle = 'orange';
+                ctx.beginPath();
+                ctx.ellipse(x_leftleg, y_leftleg, 45, 25, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.beginPath();
+                ctx.ellipse(x_rightleg, y_rightleg, 45, 25, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-            // ピングーの目
-            // 白目
-            //ctx.fillStyle = 'white';
-            ctx.strokeStyle = 'black';
-            ctx.beginPath();
-            ctx.arc(x_lefteye, y_lefteye, 15, 0, Math.PI * 2, true);
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.arc(x_righteye, y_righteye, 15, 0, Math.PI * 2, true);
-            ctx.stroke();
-            // 黒目
-            ctx.fillStyle = 'black';
-            ctx.beginPath();
-            ctx.arc(x_lefteye, y_lefteye, 10, 0, Math.PI * 2, true);
-            ctx.fill();
-            ctx.beginPath();
-            ctx.arc(x_righteye, y_righteye, 10, 0, Math.PI * 2, true);
-            ctx.fill();
+                // ピングーの腕
+                ctx.fillStyle = 'black';
+                ctx.beginPath();
+                ctx.ellipse(x_leftarm, y_leftarm, 25, 90, Math.PI / 4, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.beginPath();
+                ctx.ellipse(x_rightarm, y_rightarm, 25, 90, -Math.PI / 4, 0, Math.PI * 2);
+                ctx.fill();
 
-            // ピングーのくちばし
-            ctx.fillStyle = 'red';
-            ctx.beginPath();
-            ctx.ellipse(x_mouth, y_mouth, 27, 13, 0, 0, Math.PI * 2);
-            ctx.fill();
+                // ピングーの目
+                // 白目
+                //ctx.fillStyle = 'white';
+                ctx.strokeStyle = 'black';
+                ctx.beginPath();
+                ctx.arc(x_lefteye, y_lefteye, 15, 0, Math.PI * 2, true);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.arc(x_righteye, y_righteye, 15, 0, Math.PI * 2, true);
+                ctx.stroke();
+                // 黒目
+                ctx.fillStyle = 'black';
+                ctx.beginPath();
+                ctx.arc(x_lefteye, y_lefteye, 10, 0, Math.PI * 2, true);
+                ctx.fill();
+                ctx.beginPath();
+                ctx.arc(x_righteye, y_righteye, 10, 0, Math.PI * 2, true);
+                ctx.fill();
+
+                // ピングーのくちばし
+                ctx.fillStyle = 'red';
+                ctx.beginPath();
+                ctx.ellipse(x_mouth, y_mouth, 27, 13, 0, 0, Math.PI * 2);
+                ctx.fill();
+            }
         }
+
+        function blank_message() {
+            if (document.getElementById('x_rightleg').value == "" || document.getElementById('y_rightleg').value == "" || document.getElementById('x_leftleg').value == "" || document.getElementById('y_leftleg').value == "" || document.getElementById('x_rightarm').value == "" || document.getElementById('y_rightarm').value == "" || document.getElementById('x_leftarm').value == "" || document.getElementById('y_leftarm').value == "" || document.getElementById('x_righteye').value == "" || document.getElementById('y_righteye').value == "" || document.getElementById('x_lefteye').value == "" || document.getElementById('y_lefteye').value == "" || document.getElementById('x_mouth').value == "" || document.getElementById('y_mouth').value == "" || document.getElementById('x_body').value == "" || document.getElementById('y_body').value == "" || document.getElementById('x_face').value == "" || document.getElementById('y_face').value == "") {
+                window.alert("全ての項目を入力してください");
+                status = false;
+                return status;
+            }
+            else {
+                status = true;
+                return status;
+            }
+
+        }
+
     </script>
 </head>
 
