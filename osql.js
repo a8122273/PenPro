@@ -3,7 +3,7 @@ var osql = {};
 
 //osql.baseurl = '';
 osql.baseurl = 'https://dbkiso.si.aoyama.ac.jp';
-osql.db = 'pinguZ';//適宜自分のDB名に変えてください
+osql.db = 'PenProdb';//適宜自分のDB名に変えてください
 osql.via = null;
 
 /** ************************ */
