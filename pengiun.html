@@ -9,7 +9,7 @@
     <script type="text/javascript" src="osql.js"></script>
 
     <script>
-        var status = true;
+        var status = "false";
         function buttonMakePressed() {
             var x_rightleg = document.getElementById('x_rightleg').value;
             var y_rightleg = document.getElementById('y_rightleg').value;
@@ -30,9 +30,9 @@
             var x_face = document.getElementById('x_face').value;
             var y_face = document.getElementById('y_face').value;
 
-
             status = blank_message();
-            if (blank_message() == false) {
+
+            if (status == "false") {
                 window.alert("全ての項目を入力してください");
             }
             else {
@@ -107,15 +107,12 @@
 
         function blank_message() {
             if (document.getElementById('x_rightleg').value == "" || document.getElementById('y_rightleg').value == "" || document.getElementById('x_leftleg').value == "" || document.getElementById('y_leftleg').value == "" || document.getElementById('x_rightarm').value == "" || document.getElementById('y_rightarm').value == "" || document.getElementById('x_leftarm').value == "" || document.getElementById('y_leftarm').value == "" || document.getElementById('x_righteye').value == "" || document.getElementById('y_righteye').value == "" || document.getElementById('x_lefteye').value == "" || document.getElementById('y_lefteye').value == "" || document.getElementById('x_mouth').value == "" || document.getElementById('y_mouth').value == "" || document.getElementById('x_body').value == "" || document.getElementById('y_body').value == "" || document.getElementById('x_face').value == "" || document.getElementById('y_face').value == "") {
-                window.alert("全ての項目を入力してください");
-                status = false;
-                return status;
+                status = "false";
             }
             else {
-                status = true;
-                return status;
+                status = "true";
             }
-
+            return status;
         }
 
     </script>
