@@ -9,7 +9,7 @@
     <script type="text/javascript" src="osql.js"></script>
 
     <script>
-        function buttonAPressed() {
+        function buttonMakePressed() {
             var x_rightleg = document.getElementById('x_rightleg').value;
             var y_rightleg = document.getElementById('y_rightleg').value;
             var x_leftleg = document.getElementById('x_leftleg').value;
@@ -38,59 +38,64 @@
             // ピングーの体 (胴体)
             ctx.fillStyle = 'black';
             ctx.beginPath();
-            ctx.ellipse(250, 250, 90, 120, 0, 0, Math.PI * 2);
+            ctx.ellipse(x_body, y_body, 90, 120, 0, 0, Math.PI * 2);
             ctx.fill();
 
             // ピングーの腹部
             ctx.fillStyle = 'white';
             ctx.beginPath();
-            ctx.ellipse(250, 250, 70, 100, 0, 0, Math.PI * 2);
+            ctx.ellipse(x_body, y_body, 70, 100, 0, 0, Math.PI * 2);
             ctx.fill();
 
             // ピングーの頭
             ctx.fillStyle = 'black';
             ctx.beginPath();
-            ctx.ellipse(250, 95, 70, 55, 0, 0, Math.PI * 2);
+            ctx.ellipse(x_face, y_face, 70, 55, 0, 0, Math.PI * 2);
             ctx.fill();
 
-            // ピングーの目
-            ctx.fillStyle = 'white';
-            ctx.beginPath();
-            ctx.arc(220, 85, 15, 0, Math.PI * 2, true);
-            ctx.fill();
-            ctx.beginPath();
-            ctx.arc(280, 85, 15, 0, Math.PI * 2, true);
-            ctx.fill();
-            ctx.fillStyle = 'black';
-            ctx.beginPath();
-            ctx.arc(220, 85, 10, 0, Math.PI * 2, true);
-            ctx.fill();
-            ctx.beginPath();
-            ctx.arc(280, 85, 10, 0, Math.PI * 2, true);
-            ctx.fill();
 
-            // ピングーのくちばし
-            ctx.fillStyle = 'red';
-            ctx.beginPath();
-            ctx.ellipse(250, 115, 27, 13, 0, 0, Math.PI * 2);
-            ctx.fill();
 
             // ピングーの足
             ctx.fillStyle = 'orange';
             ctx.beginPath();
-            ctx.ellipse(200, 365, 45, 25, 0, 0, Math.PI * 2);
+            ctx.ellipse(x_leftleg, y_leftleg, 45, 25, 0, 0, Math.PI * 2);
             ctx.fill();
             ctx.beginPath();
-            ctx.ellipse(300, 365, 45, 25, 0, 0, Math.PI * 2);
+            ctx.ellipse(x_rightleg, y_rightleg, 45, 25, 0, 0, Math.PI * 2);
             ctx.fill();
 
             // ピングーの腕
             ctx.fillStyle = 'black';
             ctx.beginPath();
-            ctx.ellipse(150, 200, 25, 90, Math.PI / 4, 0, Math.PI * 2);
+            ctx.ellipse(x_leftarm, y_leftarm, 25, 90, Math.PI / 4, 0, Math.PI * 2);
             ctx.fill();
             ctx.beginPath();
-            ctx.ellipse(350, 200, 25, 90, -Math.PI / 4, 0, Math.PI * 2);
+            ctx.ellipse(x_rightarm, y_rightarm, 25, 90, -Math.PI / 4, 0, Math.PI * 2);
+            ctx.fill();
+
+            // ピングーの目
+            // 白目
+            //ctx.fillStyle = 'white';
+            ctx.strokeStyle = 'black';
+            ctx.beginPath();
+            ctx.arc(x_lefteye, y_lefteye, 15, 0, Math.PI * 2, true);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(x_righteye, y_righteye, 15, 0, Math.PI * 2, true);
+            ctx.stroke();
+            // 黒目
+            ctx.fillStyle = 'black';
+            ctx.beginPath();
+            ctx.arc(x_lefteye, y_lefteye, 10, 0, Math.PI * 2, true);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(x_righteye, y_righteye, 10, 0, Math.PI * 2, true);
+            ctx.fill();
+
+            // ピングーのくちばし
+            ctx.fillStyle = 'red';
+            ctx.beginPath();
+            ctx.ellipse(x_mouth, y_mouth, 27, 13, 0, 0, Math.PI * 2);
             ctx.fill();
         }
     </script>
@@ -98,6 +103,8 @@
 
 <body>
     <h1>ペンギンを作ろう</h1>
+    <p>見本（サイズは適当）</p>
+    <img src="pingu_sample.png" width="200" height="200" alt="サンプル画像 "><br>
     右足のx座標<input type="text" id="x_rightleg">
     右足のy座標<input type="text" id="y_rightleg"><br>
     左足のx座標<input type="text" id="x_leftleg">
@@ -116,7 +123,7 @@
     体のy座標<input type="text" id="y_body"><br>
     顔のx座標<input type="text" id="x_face">
     顔のy座標<input type="text" id="y_face"><br>
-    <button onclick="buttonAPressed()">作成</button>
+    <button onclick="buttonMakePressed()">作成</button>
     <hr>
     <canvas id="pinguCanvas" width="500" height="500" style="border: solid 1px;"></canvas>
 </body>
