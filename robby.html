@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="osql.js"></script>
+
+    <script>
+        osql.requireLogin();
+
+        var me;
+
+        $(document).ready(async function () {
+            me = await osql.getMe();
+            document.getElementById('firstname').innerHTML = me.fname;
+            document.getElementById('lastname').innerHTML = me.lname;
+
+            await refreshRooms();
+            setInterval(refreshRooms, 2000);
+        });
+
+        async function createRoom() {
+            var name = document.getElementById('roomname').value;
+            var sql = `insert into Rooms (topic,turn, roomname) values('',0,'${name}');`;
+            var roomId = await osql.connectInsert(sql);
+            console.log(roomId);
+
+            refreshRooms();
+        }
+
+        async function refreshRooms() {
+            var sql = 'select * from Rooms;';
+            var objects = await osql.connect(sql);
+            console.log(objects);
+            var html = '';
+            html = html + '<table border="1">';
+            for (var i = 0; i < objects.length; i++) {
+                html = html + '<tr>';
+                var object = objects[i];
+                html = html + `<td>${object.roomid}</td>`;
+                html = html + `<td>${object.roomname}</td>`;
+                html = html + `<td><a href="room.html?roomid=${object.roomid}">入室</a></td>`;
+                html = html + '</tr>';
+            }
+            html = html + '</table>';
+            document.getElementById('rooms').innerHTML = html;
+        }
+
+
+    </script>
+
+</head>
+
+<body>
+    <h1>robby</h1>
+    <div style="text-align: right;">
+        ようこそ<span id="lastname"></span> <span id="firstname"></span>さん
+        <a href="index.html">top</a>
+    </div>
+    <hr>
+    <div>
+        <h2>create room</h2>
+        <input id="roomname" type="text">
+        <button onclick="createRoom()">new room</button>
+    </div>
+    <h2>rooms</h2>
+    <div id="rooms"></div>
+</body>
+
+</html>
