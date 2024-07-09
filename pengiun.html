@@ -78,6 +78,12 @@
                 ctx.ellipse(x_rightarm, y_rightarm, 25, 90, -Math.PI / 4, 0, Math.PI * 2);
                 ctx.fill();
 
+                // ピングーのくちばし
+                ctx.fillStyle = 'red';
+                ctx.beginPath();
+                ctx.ellipse(x_mouth, y_mouth, 27, 13, 0, 0, Math.PI * 2);
+                ctx.fill();
+
                 // ピングーの目
                 // 白目
                 //ctx.fillStyle = 'white';
@@ -95,12 +101,6 @@
                 ctx.fill();
                 ctx.beginPath();
                 ctx.arc(x_righteye, y_righteye, 10, 0, Math.PI * 2, true);
-                ctx.fill();
-
-                // ピングーのくちばし
-                ctx.fillStyle = 'red';
-                ctx.beginPath();
-                ctx.ellipse(x_mouth, y_mouth, 27, 13, 0, 0, Math.PI * 2);
                 ctx.fill();
             }
         }
