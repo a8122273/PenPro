@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="osql.js"></script>
+
+    <script>
+        osql.requireLogin();
+
+        $(document).ready(async function () {
+            var me = await osql.getMe();
+            console.log(me);
+            var sql = `insert ignore into Users values('${me.userid}', '${me.fname}'+" "'${me.lname}');`;
+            await osql.connect(sql);
+
+            document.getElementById('firstname').innerHTML = me.fname + " " + me.lname;
+        });
+
+        function logout() {
+            osql.logout();
+        }
+    </script>
+
+</head>
+
+<body>
+    <h1>PenPro</h1>
+    <div style="text-align: right;">
+        ようこそ <span id="firstname"></span>さん
+        <a href="javascript:logout()">logout</a>
+    </div>
+    <hr>
+    <div>
+        <a href="robby.html">robbyへ</a>
+    </div>
+</body>
+
+</html>
