@@ -19,10 +19,29 @@
             await osql.connect(sql);
 
             document.getElementById('firstname').innerHTML = me.fname + " " + me.lname;
+            document.getElementById('myroom_user').innerHTML = me.fname + "さんの部屋一覧";
+            await Myrooms(me.id);
         });
 
         function logout() {
             osql.logout();
+        }
+
+        async function Myrooms(id) {
+            var sql2 = `select Participation.roomID,Rooms.roomname from (Users inner join Participation on Users.userID = Participation.userID) inner join Rooms on Participation.roomID = Rooms.roomID where Participation.userID = '${id}';`;
+            var myrooms = await osql.connect(sql2);
+            var html = '';
+            html = html + '<table border="1">';
+            for (var i = 0; i < myrooms.length; i++) {
+                var myroom = myrooms[i];
+                html = html + '<tr>';
+                html = html + `<td>${myroom.roomID}</td>`;
+                html = html + `<td>${myroom.roomname}</td>`;
+                html = html + `<td><a href="todo.html?roomid=${myroom.roomID}">入室</a></td>`;
+                html = html + '</tr>';
+            }
+            html = html + '</table>';
+            document.getElementById('myrooms').innerHTML = html;
         }
     </script>
 
@@ -39,10 +58,11 @@
         <ul>
             <li><a href="robby.html">部屋作成へ</a></li>
             <li><a href="allpenguin.html">みんなのペンギンを見てみる！</a></li>
-
         </ul>
-
     </div>
+    <hr>
+    <h2 id="myroom_user"></h2>
+    <div id="myrooms"></div>
 </body>
 
 </html>

@@ -2,6 +2,7 @@
 
 <html>
 
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -9,8 +10,8 @@
     <script type="text/javascript" src="osql.js"></script>
 
     <script>
+        //メモroomIDを表示しているが後でroomnameが表示されるようにしたい
         osql.requireLogin();
-
         $(document).ready(async function () {
             var me = await osql.getMe();
             console.log(me);
