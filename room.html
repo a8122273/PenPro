@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="osql.js"></script>
+
+    <script>
+        osql.requireLogin();
+
+        var me;
+        var roomID = osql.getParam('roomID');
+
+        $(document).ready(
+            async function () {
+                me = await osql.getMe();
+                document.getElementById('firstname').innerHTML = me.fname + ' ' + me.lname;
+
+                var sql = `select * from Rooms where roomID = '${roomID}';`;
+                var objects = await osql.connect(sql);
+
+                var sql2 = `select * from Participation where roomID = '${roomID}';`;
+                var objects2 = await osql.connect(sql2);
+                var length = objects2.length + 1;
+                console.log(length);
+                var hitori = 0;
+                for (var i = 0; i < objects2.length; i++) {
+                    var object = objects2[i];
+                    if (object.userID == me.id) {
+                        hitori = 1;
+                    }
+                }
+                if (hitori == 0) {
+                    var sql3 = `insert into Participation (userID, roomID, orders) values ('${me.id}', '${roomID}','${length}');`;
+                    var objects3 = await osql.connectInsert(sql3);
+                }
+
+                var room = objects[0];
+                document.getElementById('members').innerHTML = room.name;
+
+                await show();
+                setInterval(show, 2000);
+            });
+
+        async function show() {
+            var sql = `select * from Rooms where roomID = ${roomID};`;
+            var objects = await osql.connect(sql);
+            var room = objects[0];
+            document.getElementById('members-div').innerHTML = room.topic;
+
+
+            var sql2 = `select * from Participation where roomID = ${roomID};`;
+            var objects2 = await osql.connect(sql2);
+            var html = '';
+            html = html + '<table border="1">';
+            for (var i = 0; i < objects2.length; i++) {
+                html = html + '<tr>';
+                var object = objects2[i];
+                html = html + `<td>${object.userID}</td>`;
+                html = html + `<td>${object.number}</td>`;
+                html = html + '</tr>';
+            }
+            html = html + '</table>';
+            document.getElementById('names').innerHTML = html;
+        }
+
+    </script>
+
+</head>
+
+<body>
+    <h1>メンバー決定ページ <span id="members"></span></h1>
+    <div style="text-align: right;">
+        ようこそ<span id="firstname"></span>さん
+        <a href="index.html">top</a>
+    </div>
+    <hr>
+
+    <div>メンバー<span id="members-div"></span></div>
+    <br>
+    <div id="names"></div>
+</body>
+
+</html>
