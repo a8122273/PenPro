@@ -24,11 +24,11 @@
                 show();
             });
 
-        function add() {
+        async function add() {
             var task = document.getElementById('task').value;
             var sql = `insert into Todos (roomID, username, todo, status) values('${roomID}', '${me.fname}','${task}',FALSE);`;
-            osql.connect(sql);
-            show();
+            await osql.connect(sql);
+            await show();
         }
 
         async function show() {
