@@ -225,24 +225,5 @@ osql.getCookies = function () {
     }
     return cookies;
 }
-async function showHints() {
-    var sql = `select count(status) from Todos where roomID = '${roomID}' and status = TRUE;`;
-    var status_objects = await osql.connect(sql);
-    console.log(status_objects);
-    var count = Math.floor(parseInt(status_objects[0]['count(status)']) / 2);
-    console.log(count);
-    var sql2 = `select * from Hints;`;
-    var hint_objects = await osql.connect(sql2);
-    var html = '';
-    html = html + '<table border="1">';
-    for (var i = 0; i < count; i++) {
-        var hint = hint_objects[i];
-        html = html + '<tr>';
-        html = html + `<td>${hint.hintID}</td>`;
-        html = html + `<td>${hint.hint}</td>`;
-        html = html + '</tr>';
-    }
-    html = html + '</table>';
-    document.getElementById('hints').innerHTML = html;
-}
+
 
