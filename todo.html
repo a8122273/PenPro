@@ -21,12 +21,41 @@
 
                 var sql = `select * from Rooms where roomID = '${roomID}';`;
                 var objects = await osql.connect(sql);
+                show();
             });
 
         function add() {
             var task = document.getElementById('task').value;
             var sql = `insert into Todos (roomID, username, todo, status) values('${roomID}', '${me.fname}','${task}',FALSE);`;
             osql.connect(sql);
+            show();
+        }
+
+        async function show() {
+            var sql = `select * from Todos where roomID = '${roomID}';`;
+            var todo_objects = await osql.connect(sql);
+            var html = '';
+            html = html + '<table border="1">';
+            for (var i = 0; i < todo_objects.length; i++) {
+                html = html + '<tr>';
+                var todo_object = todo_objects[i];
+                html = html + `<td>${i + 1}</td>`;
+                html = html + `<td>${todo_object.username}</td>`;
+                html = html + `<td>${todo_object.todo}</td>`;
+                html = html + `<td><button onclick="checktask('${todo_object.username}','${todo_object.todo}')">完了</button></td>`;
+                //html = html + `<td><a href="todo.html?roomID=${todo_object.roomID}"></a></td>`;
+                html = html + '</tr>';
+            }
+            html = html + '</table>';
+            document.getElementById('names').innerHTML = html;
+        }
+        function checktask(username, todo) {
+            //var task = document.getElementById('task').value;
+            console.log(username);
+            var sql = `update Todos set status = TRUE where roomID = '${roomID}' and username = '${username}' and todo = '${todo}'`;
+            osql.connect(sql);
+            console.log(sql);
+
         }
     </script>
 
