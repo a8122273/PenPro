@@ -9,6 +9,21 @@
     <script type="text/javascript" src="osql.js"></script>
 
     <script>
+        osql.requireLogin();
+        var me;
+        var roomID = osql.getParam('roomID');
+
+        $(document).ready(
+            async function () {
+                me = await osql.getMe();
+                document.getElementById('firstname').innerHTML = me.fname + ' ' + me.lname;
+
+                var sql = `select * from Rooms where roomID = '${roomID}';`;
+                var objects = await osql.connect(sql);
+
+                await showHints();
+            });
+
         var status = "false";
         function buttonMakePressed() {
             var x_rightleg = document.getElementById('x_rightleg').value;
@@ -115,6 +130,27 @@
             return status;
         }
 
+        async function showHints() {
+            var sql = `select count(status) from Todos where roomID = '${roomID}' and status = TRUE;`;
+            var status_objects = await osql.connect(sql);
+            console.log(status_objects);
+            var count = Math.floor(parseInt(status_objects[0]['count(status)']) / 2);
+            console.log(count);
+            var sql2 = `select * from Hints;`;
+            var hint_objects = await osql.connect(sql2);
+            var html = '';
+            html = html + '<table border="1">';
+            for (var i = 0; i < count; i++) {
+                var hint = hint_objects[i];
+                html = html + '<tr>';
+                html = html + `<td>${hint.hintID}</td>`;
+                html = html + `<td>${hint.hint}</td>`;
+                html = html + '</tr>';
+            }
+            html = html + '</table>';
+            document.getElementById('hints').innerHTML = html;
+        }
+
     </script>
 </head>
 
@@ -122,6 +158,7 @@
     <h1>ペンギンを作ろう</h1>
     <p>見本（サイズは適当）</p>
     <img src="image/pingu_sample.png" width="200" height="200" alt="サンプル画像 "><br>
+    <div id="hints"></div>
     <img src="image/leg.png" width="160" height="100" alt="サンプル画像 "><br>
     右足のx座標<input type="text" id="x_rightleg">
     右足のy座標<input type="text" id="y_rightleg"><br>
