@@ -39,7 +39,7 @@
                 }
 
                 var room = objects[0];
-                document.getElementById('members').innerHTML = room.name;
+                document.getElementById('members').innerHTML = room.roomname;
 
                 await show();
                 setInterval(show, 2000);
@@ -49,7 +49,7 @@
             var sql = `select * from Rooms where roomID = ${roomID};`;
             var objects = await osql.connect(sql);
             var room = objects[0];
-            document.getElementById('members-div').innerHTML = room.topic;
+            //document.getElementById('members-div').innerHTML = room.roomname;
 
 
             var sql2 = `select * from Participation where roomID = ${roomID};`;
@@ -60,7 +60,7 @@
                 html = html + '<tr>';
                 var object = objects2[i];
                 html = html + `<td>${object.userID}</td>`;
-                html = html + `<td>${object.number}</td>`;
+                html = html + `<td>${object.orders}</td>`;
                 html = html + '</tr>';
             }
             html = html + '</table>';
@@ -72,7 +72,7 @@
 </head>
 
 <body>
-    <h1>メンバー決定ページ <span id="members"></span></h1>
+    <h1>メンバー決定ページ <br><span id="members"></span></h1>
     <div style="text-align: right;">
         ようこそ<span id="firstname"></span>さん
         <a href="index.html">top</a>
