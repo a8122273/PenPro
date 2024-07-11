@@ -25,7 +25,7 @@
                 var sql2 = `select * from Participation where roomID = '${roomID}';`;
                 var objects2 = await osql.connect(sql2);
                 var length = objects2.length + 1;
-                console.log(length);
+                //console.log(length);
                 var hitori = 0;
                 for (var i = 0; i < objects2.length; i++) {
                     var object = objects2[i];
@@ -66,6 +66,9 @@
             html = html + '</table>';
             document.getElementById('names').innerHTML = html;
         }
+        function decide() {
+            location.href = `todo.html?roomID=${roomID}`;
+        }
 
     </script>
 
@@ -79,9 +82,11 @@
     </div>
     <hr>
 
-    <div>メンバー<span id="members-div"></span></div>
+    <div>メンバー一覧<span id="members-div"></span></div>
     <br>
     <div id="names"></div>
+    <br>
+    <button onclick="decide()">メンバーを決定する！</button>
 </body>
 
 </html>
