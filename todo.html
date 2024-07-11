@@ -82,6 +82,10 @@
             html = html + '</table>';
             document.getElementById('hints').innerHTML = html;
         }
+        function makePenguin() {
+            window.alert('ペンギンは一回しか描けません。本当にいいですか？');
+            location.href = `penguin.html?roomID=${roomID}anduserID=${me.id}`;
+        }
     </script>
 
 </head>
@@ -104,6 +108,8 @@
     <hr>
     <div>ヒントを見る</div>
     <div id="hints"></div>
+    <hr>
+    <button onclick="makePenguin()">ペンギンを描く！！</button>
 
 </body>
 
