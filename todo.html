@@ -46,6 +46,7 @@
                 html = html + `<td>${todo_object.username}</td>`;
                 html = html + `<td>${todo_object.todo}</td>`;
                 html = html + `<td><button onclick="checktask('${todo_object.username}','${todo_object.todo}')">完了</button></td>`;
+                html = html + `<td><button onclick="deleteTask('${todo_object.username}','${todo_object.todo}')">削除</button></td>`;
                 //html = html + `<td><a href="todo.html?roomID=${todo_object.roomID}"></a></td>`;
                 html = html + '</tr>';
             }
@@ -60,6 +61,13 @@
             console.log(sql);
             await showHints();
 
+        }
+        async function deleteTask(username, todo) {
+            window.alert('削除しますか？');
+            var sql = `delete from Todos where roomID = '${roomID}' and username = '${username}' and todo = '${todo}'`;
+            await osql.connect(sql);
+            await show();
+            await showHints();
         }
 
         async function showHints() {
