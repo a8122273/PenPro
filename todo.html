@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="osql.js"></script>
+
+    <script>
+        osql.requireLogin();
+
+        var me;
+        var roomID = osql.getParam('roomID');
+
+        $(document).ready(
+            async function () {
+                me = await osql.getMe();
+                document.getElementById('firstname').innerHTML = me.fname + ' ' + me.lname;
+
+                var sql = `select * from Rooms where roomID = '${roomID}';`;
+                var objects = await osql.connect(sql);
+            });
+
+        function add() {
+            var task = document.getElementById('task').value;
+            var sql = `insert into Todos (roomID, todo,username,status) values('${roomID}', '${task}');`;
+            osql.connect(sql);
+            show();
+        }
+    </script>
+
+</head>
+
+<body>
+    <h1>一週間のToDo<br><span id="members"></span></h1>
+    <p>今週のタスクを設定しよう</p>
+    <div style="text-align: right;">
+        ようこそ<span id="firstname"></span>さん
+        <a href="index.html">top</a>
+    </div>
+    <hr>
+
+    <div>リストを追加<span id="members-div"></span></div>
+    <input type="text" id="task">
+    <button onclick="add()">追加する！</button>
+    <br>
+    <div id="names"></div>
+    <br>
+
+</body>
+
+</html>

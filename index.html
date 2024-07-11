@@ -14,7 +14,7 @@
         $(document).ready(async function () {
             var me = await osql.getMe();
             console.log(me);
-            var sql = `insert ignore into Users values('${me.id}', '${me.fname + me.lname}');`;
+            var sql = `insert ignore into Users values('${me.id}', '${me.fname}');`;
             console.log(sql);
             await osql.connect(sql);
 
