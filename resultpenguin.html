@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="osql.js"></script>
+
+    <script>
+        osql.requireLogin();
+        var me;
+        var roomID = osql.getParam('roomID');
+
+        $(document).ready(
+            async function () {
+                me = await osql.getMe();
+                document.getElementById('firstname').innerHTML = me.fname + ' ' + me.lname;
+
+                var sql = `select * from Rooms where roomID = '${roomID}';`;
+                var objects = await osql.connect(sql);
+                await makePenguin();
+            });
+
+
+        var status = "false";
+        async function makePenguin() {
+            var sql = `select * from Locations;`;
+            var pingu_objects = await osql.connect(sql);
+            var pingu_object = pingu_objects[0];
+            // 背景を白く塗る
+            ctx.clearRect(0, 0, 500, 500);
+
+            // ピングーの体 
+            ctx.fillStyle = 'black';
+            ctx.beginPath();
+            ctx.ellipse(pingu_object.x_body, pingu_object.y_body, 90, 120, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // ピングーの腹部
+            ctx.fillStyle = 'white';
+            ctx.beginPath();
+            ctx.ellipse(pingu_object.x_body, pingu_object.y_body, 70, 100, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // ピングーの頭
+            ctx.fillStyle = 'black';
+            ctx.beginPath();
+            ctx.ellipse(pingu_object.x_face, pingu_object.y_face, 70, 55, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // ピングーの足
+            ctx.fillStyle = 'orange';
+            ctx.beginPath();
+            ctx.ellipse(pingu_object.x_leftleg, pingu_object.y_leftleg, 45, 25, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.ellipse(pingu_object.x_rightleg, pingu_object.y_rightleg, 45, 25, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // ピングーの腕
+            ctx.fillStyle = 'black';
+            ctx.beginPath();
+            ctx.ellipse(pingu_object.x_leftarm, pingu_object.y_leftarm, 25, 90, Math.PI / 4, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.ellipse(pingu_object.x_rightarm, pingu_object.y_rightarm, 25, 90, -Math.PI / 4, 0, Math.PI * 2);
+            ctx.fill();
+
+            // ピングーのくちばし
+            ctx.fillStyle = 'red';
+            ctx.beginPath();
+            ctx.ellipse(pingu_object.x_mouth, pingu_object.y_mouth, 27, 13, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // ピングーの目
+            // 白目
+            ctx.strokeStyle = 'black';
+            ctx.fillStyle = 'white';
+            ctx.beginPath();
+            ctx.arc(pingu_object.x_lefteye, pingu_object.y_lefteye, 15, 0, Math.PI * 2, true);
+            ctx.fill();
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(pingu_object.x_righteye, pingu_object.y_righteye, 15, 0, Math.PI * 2, true);
+            ctx.fill();
+            ctx.stroke();
+            // 黒目
+            ctx.fillStyle = 'black';
+            ctx.beginPath();
+            ctx.arc(pingu_object.x_lefteye, pingu_object.y_lefteye, 10, 0, Math.PI * 2, true);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(pingu_object.x_righteye, pingu_object.y_righteye, 10, 0, Math.PI * 2, true);
+            ctx.fill();
+        }
+
+
+
+
+
+
+
+
+    </script>
+</head>
+
+<body>
+    <h1>ペンギンを作ろう</h1>
+    <p>見本（サイズは適当）</p>
+    <img src="image/pingu_sample.png" width="200" height="200" alt="サンプル画像 "><br>
+    <p>あなたのチームのペンギン</p>
+    <canvas id="pinguCanvas" width="500" height="500" style="border: solid 1px;"></canvas>
+</body>
+
+</html>

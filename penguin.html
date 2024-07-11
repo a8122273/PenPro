@@ -20,6 +20,7 @@
 
                 var sql = `select * from Rooms where roomID = '${roomID}';`;
                 var objects = await osql.connect(sql);
+                await makePenguin();
 
 
             });
@@ -30,101 +31,103 @@
 
         var status = "false";
         function buttonMakePressed() {
-            var x_rightleg = document.getElementById('x_rightleg').value;
-            var y_rightleg = document.getElementById('y_rightleg').value;
-            var x_leftleg = document.getElementById('x_leftleg').value;
-            var y_leftleg = document.getElementById('y_leftleg').value;
-            var x_rightarm = document.getElementById('x_rightarm').value;
-            var y_rightarm = document.getElementById('y_rightarm').value;
-            var x_leftarm = document.getElementById('x_leftarm').value;
-            var y_leftarm = document.getElementById('y_leftarm').value;
-            var x_righteye = document.getElementById('x_righteye').value;
-            var y_righteye = document.getElementById('y_righteye').value;
-            var x_lefteye = document.getElementById('x_lefteye').value;
-            var y_lefteye = document.getElementById('y_lefteye').value;
-            var x_mouth = document.getElementById('x_mouth').value;
-            var y_mouth = document.getElementById('y_mouth').value;
-            var x_body = document.getElementById('x_body').value;
-            var y_body = document.getElementById('y_body').value;
-            var x_face = document.getElementById('x_face').value;
-            var y_face = document.getElementById('y_face').value;
-
-            status = blank_message();
-
-            if (status == "false") {
-                window.alert("全ての項目を入力してください");
-            }
-            else {
-                var canvas = document.getElementById('pinguCanvas');
-                var ctx = canvas.getContext('2d');
-
-                // 背景を白く塗る
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                // ピングーの体 (胴体)
-                ctx.fillStyle = 'black';
-                ctx.beginPath();
-                ctx.ellipse(x_body, y_body, 90, 120, 0, 0, Math.PI * 2);
-                ctx.fill();
-
-                // ピングーの腹部
-                ctx.fillStyle = 'white';
-                ctx.beginPath();
-                ctx.ellipse(x_body, y_body, 70, 100, 0, 0, Math.PI * 2);
-                ctx.fill();
-
-                // ピングーの頭
-                ctx.fillStyle = 'black';
-                ctx.beginPath();
-                ctx.ellipse(x_face, y_face, 70, 55, 0, 0, Math.PI * 2);
-                ctx.fill();
-
-                // ピングーの足
-                ctx.fillStyle = 'orange';
-                ctx.beginPath();
-                ctx.ellipse(x_leftleg, y_leftleg, 45, 25, 0, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.beginPath();
-                ctx.ellipse(x_rightleg, y_rightleg, 45, 25, 0, 0, Math.PI * 2);
-                ctx.fill();
-
-                // ピングーの腕
-                ctx.fillStyle = 'black';
-                ctx.beginPath();
-                ctx.ellipse(x_leftarm, y_leftarm, 25, 90, Math.PI / 4, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.beginPath();
-                ctx.ellipse(x_rightarm, y_rightarm, 25, 90, -Math.PI / 4, 0, Math.PI * 2);
-                ctx.fill();
-
-                // ピングーのくちばし
-                ctx.fillStyle = 'red';
-                ctx.beginPath();
-                ctx.ellipse(x_mouth, y_mouth, 27, 13, 0, 0, Math.PI * 2);
-                ctx.fill();
-
-                // ピングーの目
-                // 白目
-                ctx.strokeStyle = 'black';
-                ctx.fillStyle = 'white';
-                ctx.beginPath();
-                ctx.arc(pingu_object.x_lefteye, pingu_object.y_lefteye, 15, 0, Math.PI * 2, true);
-                ctx.fill();
-                ctx.stroke();
-                ctx.beginPath();
-                ctx.arc(pingu_object.x_righteye, pingu_object.y_righteye, 15, 0, Math.PI * 2, true);
-                ctx.fill();
-                ctx.stroke();
-                // 黒目
-                ctx.fillStyle = 'black';
-                ctx.beginPath();
-                ctx.arc(x_lefteye, y_lefteye, 10, 0, Math.PI * 2, true);
-                ctx.fill();
-                ctx.beginPath();
-                ctx.arc(x_righteye, y_righteye, 10, 0, Math.PI * 2, true);
-                ctx.fill();
-            }
+            location.href = "resultpenguin.html?roomID=" + roomID;
         }
+        //     var x_rightleg = document.getElementById('x_rightleg').value;
+        //     var y_rightleg = document.getElementById('y_rightleg').value;
+        //     var x_leftleg = document.getElementById('x_leftleg').value;
+        //     var y_leftleg = document.getElementById('y_leftleg').value;
+        //     var x_rightarm = document.getElementById('x_rightarm').value;
+        //     var y_rightarm = document.getElementById('y_rightarm').value;
+        //     var x_leftarm = document.getElementById('x_leftarm').value;
+        //     var y_leftarm = document.getElementById('y_leftarm').value;
+        //     var x_righteye = document.getElementById('x_righteye').value;
+        //     var y_righteye = document.getElementById('y_righteye').value;
+        //     var x_lefteye = document.getElementById('x_lefteye').value;
+        //     var y_lefteye = document.getElementById('y_lefteye').value;
+        //     var x_mouth = document.getElementById('x_mouth').value;
+        //     var y_mouth = document.getElementById('y_mouth').value;
+        //     var x_body = document.getElementById('x_body').value;
+        //     var y_body = document.getElementById('y_body').value;
+        //     var x_face = document.getElementById('x_face').value;
+        //     var y_face = document.getElementById('y_face').value;
+
+        //     status = blank_message();
+
+        //     if (status == "false") {
+        //         window.alert("全ての項目を入力してください");
+        //     }
+        //     else {
+        //         var canvas = document.getElementById('pinguCanvas');
+        //         var ctx = canvas.getContext('2d');
+
+        //         // 背景を白く塗る
+        //         ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        //         // ピングーの体 (胴体)
+        //         ctx.fillStyle = 'black';
+        //         ctx.beginPath();
+        //         ctx.ellipse(x_body, y_body, 90, 120, 0, 0, Math.PI * 2);
+        //         ctx.fill();
+
+        //         // ピングーの腹部
+        //         ctx.fillStyle = 'white';
+        //         ctx.beginPath();
+        //         ctx.ellipse(x_body, y_body, 70, 100, 0, 0, Math.PI * 2);
+        //         ctx.fill();
+
+        //         // ピングーの頭
+        //         ctx.fillStyle = 'black';
+        //         ctx.beginPath();
+        //         ctx.ellipse(x_face, y_face, 70, 55, 0, 0, Math.PI * 2);
+        //         ctx.fill();
+
+        //         // ピングーの足
+        //         ctx.fillStyle = 'orange';
+        //         ctx.beginPath();
+        //         ctx.ellipse(x_leftleg, y_leftleg, 45, 25, 0, 0, Math.PI * 2);
+        //         ctx.fill();
+        //         ctx.beginPath();
+        //         ctx.ellipse(x_rightleg, y_rightleg, 45, 25, 0, 0, Math.PI * 2);
+        //         ctx.fill();
+
+        //         // ピングーの腕
+        //         ctx.fillStyle = 'black';
+        //         ctx.beginPath();
+        //         ctx.ellipse(x_leftarm, y_leftarm, 25, 90, Math.PI / 4, 0, Math.PI * 2);
+        //         ctx.fill();
+        //         ctx.beginPath();
+        //         ctx.ellipse(x_rightarm, y_rightarm, 25, 90, -Math.PI / 4, 0, Math.PI * 2);
+        //         ctx.fill();
+
+        //         // ピングーのくちばし
+        //         ctx.fillStyle = 'red';
+        //         ctx.beginPath();
+        //         ctx.ellipse(x_mouth, y_mouth, 27, 13, 0, 0, Math.PI * 2);
+        //         ctx.fill();
+
+        //         // ピングーの目
+        //         // 白目
+        //         ctx.strokeStyle = 'black';
+        //         ctx.fillStyle = 'white';
+        //         ctx.beginPath();
+        //         ctx.arc(pingu_object.x_lefteye, pingu_object.y_lefteye, 15, 0, Math.PI * 2, true);
+        //         ctx.fill();
+        //         ctx.stroke();
+        //         ctx.beginPath();
+        //         ctx.arc(pingu_object.x_righteye, pingu_object.y_righteye, 15, 0, Math.PI * 2, true);
+        //         ctx.fill();
+        //         ctx.stroke();
+        //         // 黒目
+        //         ctx.fillStyle = 'black';
+        //         ctx.beginPath();
+        //         ctx.arc(x_lefteye, y_lefteye, 10, 0, Math.PI * 2, true);
+        //         ctx.fill();
+        //         ctx.beginPath();
+        //         ctx.arc(x_righteye, y_righteye, 10, 0, Math.PI * 2, true);
+        //         ctx.fill();
+        //     }
+        // }
 
         function blank_message() {
             if (document.getElementById('x_rightleg').value == "" || document.getElementById('y_rightleg').value == "" || document.getElementById('x_leftleg').value == "" || document.getElementById('y_leftleg').value == "" || document.getElementById('x_rightarm').value == "" || document.getElementById('y_rightarm').value == "" || document.getElementById('x_leftarm').value == "" || document.getElementById('y_leftarm').value == "" || document.getElementById('x_righteye').value == "" || document.getElementById('y_righteye').value == "" || document.getElementById('x_lefteye').value == "" || document.getElementById('y_lefteye').value == "" || document.getElementById('x_mouth').value == "" || document.getElementById('y_mouth').value == "" || document.getElementById('x_body').value == "" || document.getElementById('y_body').value == "" || document.getElementById('x_face').value == "" || document.getElementById('y_face').value == "") {
@@ -157,10 +160,49 @@
             document.getElementById('hints').innerHTML = html;
         }
 
-        var count = 0;
-        function makePenguin() {
+        var count_turn = 0;
+        async function makePenguin() {
+            count_turn++;
+            console.log(count_turn);
+            var sql = `select * from Participation where roomID = '${roomID}' and userID='${me.id}';`;
+            var orders_objects = await osql.connect(sql);
+            console.log(orders_objects[0].orders);
+            var html = '';
+            if (count_turn == 1 && orders_objects[0].orders == 1) {
+                html = html + '<img src="image/leg.png" width="160" height="100" alt="サンプル画像 "><br>';
+                html = html + '右足のx座標 < input type = "text" id = "x_rightleg" >'
+                html = html + '右足のy座標 < input type = "text" id = "y_rightleg" > <br>';
+                html = html + '<img src="image/leg.png" width="160" height="100" alt="サンプル画像 "><br>';
+                html = html + '左足のx座標 < input type = "text" id = "x_leftleg" >';
+                html = html + '左足のy座標 < input type = "text" id = "y_leftleg" > <br>';
+                html = html + '<img src="image/rightarm.png" width="150" height="150" alt="サンプル画像 "><br>';
+                html = html + '右腕のx座標 < input type = "text" id = "x_rightarm" >';
+                html = html + '右腕のy座標 < input type = "text" id = "y_rightarm" > <br>';
+            }
+            else if (count_turn == 2 && orders_objects[0].orders == 2) {
+                html = html + '<img src="image/leftarm.png" width="150" height="150" alt="サンプル画像 "><br>';
+                html = html + '左腕のx座標 < input type = "text" id = "x_leftarm" >'
+                html = html + '左腕のy座標 < input type = "text" id = "y_leftarm" > <br>';
+                html = html + '<img src="image/eye.png" width="100" height="90" alt="サンプル画像 "><br>';
+                html = html + '右目のx座標 < input type = "text" id = "x_righteye" >';
+                html = html + '右目のy座標 < input type = "text" id = "y_righteye" > <br>';
+                html = html + '<img src="image/eye.png" width="100" height="90" alt="サンプル画像 "><br>';
+                html = html + '左目のx座標 < input type = "text" id = "x_lefteye" >';
+                html = html + '左目のy座標 < input type = "text" id = "y_lefteye" > <br>';
+            }
+            else if (count_turn == 3 && orders_objects[0].orders == 3) {
+                html = html + '<img src="image/mouth.png" width="200" height="200" alt="サンプル画像 "><br>';
+                html = html + '口のx座標 < input type = "text" id = "x_mouth" >'
+                html = html + '口のy座標 < input type = "text" id = "y_mouth" > <br>';
+                html = html + '<img src="image/body.png" width="180" height="200" alt="サンプル画"><br>';
+                html = html + '体のx座標<input type="text" id="x_body">';
+                html = html + '体のy座標<input type="text" id="y_body"><br>';
+                html = html + '<img src="image/face.png" width="200" height="125" alt="サンプル画像 "><br>';
+                html = html + '顔のx座標<input type="text" id="x_face">';
+                html = html + '顔のy座標<input type="text" id="y_face"><br>';
 
-
+            }
+            document.getElementById('pingus').innerHTML = html;
         }
 
     </script>
@@ -172,33 +214,8 @@
     <img src="image/pingu_sample.png" width="200" height="200" alt="サンプル画像 "><br>
     <p>ゲットしたヒントを参考にしてペンギンを描こう！</p>
     <div id="hints"></div>
-    <img src="image/leg.png" width="160" height="100" alt="サンプル画像 "><br>
-    右足のx座標<input type="text" id="x_rightleg">
-    右足のy座標<input type="text" id="y_rightleg"><br>
-    <img src="image/leg.png" width="160" height="100" alt="サンプル画像 "><br>
-    左足のx座標<input type="text" id="x_leftleg">
-    左足のy座標<input type="text" id="y_leftleg"><br>
-    <img src="image/rightarm.png" width="150" height="150" alt="サンプル画像 "><br>
-    右腕のx座標<input type="text" id="x_rightarm">
-    右腕のy座標<input type="text" id="y_rightarm"><br>
-    <img src="image/leftarm.png" width="150" height="150" alt="サンプル画像 "><br>
-    左腕のx座標<input type="text" id="x_leftarm">
-    左腕のy座標<input type="text" id="y_leftarm"><br>
-    <img src="image/eye.png" width="100" height="90" alt="サンプル画像 "><br>
-    右目のx座標<input type="text" id="x_righteye">
-    右目のy座標<input type="text" id="y_righteye"><br>
-    <img src="image/eye.png" width="100" height="90" alt="サンプル画像 "><br>
-    左目のx座標<input type="text" id="x_lefteye">
-    左目のy座標<input type="text" id="y_lefteye"><br>
-    <img src="image/mouth.png" width="200" height="200" alt="サンプル画像 "><br>
-    口のx座標<input type="text" id="x_mouth">
-    口のy座標<input type="text" id="y_mouth"><br>
-    <img src="image/body.png" width="180" height="200" alt="サンプル画像 "><br>
-    体のx座標<input type="text" id="x_body">
-    体のy座標<input type="text" id="y_body"><br>
-    <img src="image/face.png" width="200" height="125" alt="サンプル画像 "><br>
-    顔のx座標<input type="text" id="x_face">
-    顔のy座標<input type="text" id="y_face"><br>
+    <div id="pingus"></div>
+    <button onclick="makePenguin()">次へ</button>
     <button onclick="buttonMakePressed()">作成</button>
     <hr>
     <canvas id="pinguCanvas" width="500" height="500" style="border: solid 1px;"></canvas>
