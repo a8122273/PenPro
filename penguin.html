@@ -96,13 +96,13 @@
             document.getElementById('hints').innerHTML = html;
         }
 
-        var count_turn = 0;
+        //var count_turn = 0;
         async function makePenguin() {
-
-            console.log(count_turn);
             var sql = `select * from Participation where roomID = '${roomID}' and userID='${me.id}';`;
             var orders_objects = await osql.connect(sql);
-            console.log(orders_objects[0].orders);
+            var sql2 = `select * from Rooms where roomID = '${roomID}';`;
+            var room_objects = await osql.connect(sql2);
+            var count_turn = room_objects[0].turn;
             var html = '';
             if (count_turn == orders_objects[0].orders) {
                 if (count_turn == 1 && orders_objects[0].orders == 1) {
@@ -150,7 +150,7 @@
 
         var partslist = [];
         function buttonPressed() {
-            count_turn++;
+            var sql = `update Rooms set turn = turn + 1 where roomID = '${roomID}';`;
             console.log(count_turn);
             var x_part1 = document.getElementById('x_part1').value;
             var y_part1 = document.getElementById('y_part1').value;
@@ -158,23 +158,10 @@
             var y_part2 = document.getElementById('y_part2').value;
             var x_part3 = document.getElementById('x_part3').value;
             var y_part3 = document.getElementById('y_part3').value;
-            // var x_leftarm = document.getElementById('x_leftarm').value;
-            // var y_leftarm = document.getElementById('y_leftarm').value;
-            // var x_righteye = document.getElementById('x_righteye').value;
-            // var y_righteye = document.getElementById('y_righteye').value;
-            // var x_lefteye = document.getElementById('x_lefteye').value;
-            // var y_lefteye = document.getElementById('y_lefteye').value;
-            // var x_mouth = document.getElementById('x_mouth').value;
-            // var y_mouth = document.getElementById('y_mouth').value;
-            // var x_body = document.getElementById('x_body').value;
-            // var y_body = document.getElementById('y_body').value;
-            // var x_face = document.getElementById('x_face').value;
-            // var y_face = document.getElementById('y_face').value;
-            partslist.push({ x_part1, y_part1 });
-            partslist.push({ x_part2, y_part2 });
-            partslist.push({ x_part3, y_part3 });
-            // partslist.push({ x: x_leftarm, y: y_leftarm });
-
+            partslist.push(x_part1, y_part1);
+            partslist.push(x_part2, y_part2);
+            partslist.push(x_part3, y_part3);
+            console.log(partslist);
         }
 
     </script>
