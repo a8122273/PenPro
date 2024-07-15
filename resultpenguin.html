@@ -24,11 +24,13 @@
             });
 
 
-        var status = "false";
+
         async function makePenguin() {
-            var sql = `select * from Locations;`;
+            var sql = `select * from Locations where  roomID='${roomID}';`;
             var pingu_objects = await osql.connect(sql);
             var pingu_object = pingu_objects[0];
+            var canvas = document.getElementById('pinguCanvas');
+            var ctx = canvas.getContext('2d');
             // 背景を白く塗る
             ctx.clearRect(0, 0, 500, 500);
 
@@ -95,19 +97,16 @@
             ctx.arc(pingu_object.x_righteye, pingu_object.y_righteye, 10, 0, Math.PI * 2, true);
             ctx.fill();
         }
-
-
-
-
-
-
-
-
     </script>
 </head>
 
 <body>
     <h1>ペンギンを作ろう</h1>
+    <div style="text-align: right;">
+        ようこそ<span id="lastname"></span> <span id="firstname"></span>さん
+        <a href="index.html">top</a>
+    </div>
+    <hr>
     <p>見本（サイズは適当）</p>
     <img src="image/pingu_sample.png" width="200" height="200" alt="サンプル画像 "><br>
     <p>あなたのチームのペンギン</p>
