@@ -43,6 +43,8 @@ async function inputPenguin() {
             html = html + `<img src="image/eye.png" width="100" height="90" alt="サンプル画像 "><br>`;
             html = html + '右目のx座標 ' + `<input type = "text" id = "x_part2_2">`;
             html = html + '右目のy座標 ' + `<input type = "text" id = "y_part2_2">` + ' <br>';
+            html = html + `<button onclick="inputlist()">次へ</button>`;
+
         } else {
             html = html + '他の人が入力中です';
         }
@@ -63,14 +65,17 @@ async function inputPenguin() {
             html = html + `<img src="image/face.png" width="200" height="125" alt="サンプル画像 "><br>`;
             html = html + '顔のx座標' + `<input type="text" id="x_part3_3">`;
             html = html + '顔のy座標' + `<input type="text" id="y_part3_3">` + '<br>';
-
+            html = html + `<button onclick="buttonMakePressed()">次へ</button>`;
         }
     }
     document.getElementById('pingus').innerHTML = html;
 }
 
+var list = [];
+async function inputlist() {
+    var sql = `update Rooms set turn = 2 where roomID = '${roomID}';`;
+    await osql.connect(sql);
 
-async function buttonMakePressed() {
     var x_rightleg = document.getElementById('x_part1_1').value;
     var y_rightleg = document.getElementById('y_part1_1').value;
     var x_leftleg = document.getElementById('x_part2_1').value;
@@ -81,6 +86,21 @@ async function buttonMakePressed() {
     var y_leftarm = document.getElementById('y_part1_2').value;
     var x_righteye = document.getElementById('x_part2_2').value;
     var y_righteye = document.getElementById('y_part2_2').value;
+
+    list.push(x_rightleg);
+    list.push(y_rightleg);
+    list.push(x_leftleg);
+    list.push(y_leftleg);
+    list.push(x_rightarm);
+    list.push(y_rightarm);
+    list.push(x_leftarm);
+    list.push(y_leftarm);
+    list.push(x_righteye);
+    list.push(y_righteye);
+    console.log(list);
+}
+
+async function buttonMakePressed() {
     var x_lefteye = document.getElementById('x_part3_2').value;
     var y_lefteye = document.getElementById('y_part3_2').value;
     var x_mouth = document.getElementById('x_part1_3').value;
@@ -89,7 +109,7 @@ async function buttonMakePressed() {
     var y_body = document.getElementById('y_part2_3').value;
     var x_face = document.getElementById('x_part3_3').value;
     var y_face = document.getElementById('y_part3_3').value;
-    var sql = `insert into Locations (roomID,x_rightleg,y_rightleg,x_leftleg,y_leftleg,x_rightarm,y_rightarm,x_leftarm,y_leftarm,x_righteye,y_righteye,x_lefteye,y_lefteye,x_mouth,y_mouth,x_body,y_body,x_face,y_face) values('${roomID}', '${x_rightleg}', '${y_rightleg}', '${x_leftleg}', '${y_leftleg}', '${x_rightarm}', '${y_rightarm}', '${x_leftarm}', '${y_leftarm}', '${x_righteye}', '${y_righteye}', '${x_lefteye}', '${y_lefteye}', '${x_mouth}', '${y_mouth}', '${x_body}', '${y_body}', '${x_face}', '${y_face}');`;
+    var sql = `insert into Locations (roomID,x_rightleg,y_rightleg,x_leftleg,y_leftleg,x_rightarm,y_rightarm,x_leftarm,y_leftarm,x_righteye,y_righteye,x_lefteye,y_lefteye,x_mouth,y_mouth,x_body,y_body,x_face,y_face) values('${roomID}', '${list[0]}', '${list[1]}', '${list[2]}', '${list[3]}', '${list[4]}', '${list[5]}', '${list[6]}', '${list[7]}', '${list[8]}', '${list[9]}', '${x_lefteye}', '${y_lefteye}', '${x_mouth}', '${y_mouth}', '${x_body}', '${y_body}', '${x_face}', '${y_face}');`;
     await osql.connect(sql);
     location.href = "resultpenguin.html?roomID=" + roomID;
 }
