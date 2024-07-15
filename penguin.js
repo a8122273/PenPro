@@ -67,6 +67,8 @@ async function inputPenguin() {
             html = html + '顔のy座標' + `<input type="text" id="y_part3_3">` + '<br>';
             html = html + `<button onclick="buttonMakePressed()">次へ</button>`;
         }
+    } else if (room_objects[0].turn == 3) {
+        location.href = "resultpenguin.html?roomID=" + roomID;
     }
     document.getElementById('pingus').innerHTML = html;
 }
@@ -87,18 +89,21 @@ async function inputlist() {
     var x_righteye = document.getElementById('x_part2_2').value;
     var y_righteye = document.getElementById('y_part2_2').value;
 
-    list.push(x_rightleg);
-    list.push(y_rightleg);
-    list.push(x_leftleg);
-    list.push(y_leftleg);
-    list.push(x_rightarm);
-    list.push(y_rightarm);
-    list.push(x_leftarm);
-    list.push(y_leftarm);
-    list.push(x_righteye);
-    list.push(y_righteye);
-    console.log(list);
+    // list.push(x_rightleg);
+    // list.push(y_rightleg);
+    // list.push(x_leftleg);
+    // list.push(y_leftleg);
+    // list.push(x_rightarm);
+    // list.push(y_rightarm);
+    // list.push(x_leftarm);
+    // list.push(y_leftarm);
+    // list.push(x_righteye);
+    // list.push(y_righteye);
+    // console.log(list);
+    var sql = `insert into Locations (roomID,x_rightleg,y_rightleg,x_leftleg,y_leftleg,x_rightarm,y_rightarm,x_leftarm,y_leftarm,x_righteye,y_righteye,x_lefteye,y_lefteye,x_mouth,y_mouth,x_body,y_body,x_face,y_face) values('${roomID}', '${x_rightleg}', '${y_rightleg}', '${x_leftleg}', '${y_leftleg}', '${x_rightarm}', '${y_rightarm}', '${x_leftarm}', '${y_leftarm}', '${x_righteye}', '${y_righteye}','0','0','0','0','0','0','0','0');`;
+    await osql.connect(sql);
 }
+
 
 async function buttonMakePressed() {
     var x_lefteye = document.getElementById('x_part3_2').value;
@@ -109,8 +114,10 @@ async function buttonMakePressed() {
     var y_body = document.getElementById('y_part2_3').value;
     var x_face = document.getElementById('x_part3_3').value;
     var y_face = document.getElementById('y_part3_3').value;
-    var sql = `insert into Locations (roomID,x_rightleg,y_rightleg,x_leftleg,y_leftleg,x_rightarm,y_rightarm,x_leftarm,y_leftarm,x_righteye,y_righteye,x_lefteye,y_lefteye,x_mouth,y_mouth,x_body,y_body,x_face,y_face) values('${roomID}', '${list[0]}', '${list[1]}', '${list[2]}', '${list[3]}', '${list[4]}', '${list[5]}', '${list[6]}', '${list[7]}', '${list[8]}', '${list[9]}', '${x_lefteye}', '${y_lefteye}', '${x_mouth}', '${y_mouth}', '${x_body}', '${y_body}', '${x_face}', '${y_face}');`;
+    var sql = `update Locations set x_lefteye = '${x_lefteye}', y_lefteye = '${y_lefteye}', x_mouth = '${x_mouth}', y_mouth = '${y_mouth}', x_body = '${x_body}', y_body = '${y_body}', x_face = '${x_face}', y_face = '${y_face}' where roomID = '${roomID}';`;
     await osql.connect(sql);
+    var sql2 = `update Rooms set turn = 3 where roomID = '${roomID}';`;
+    await osql.connect(sql2);
     location.href = "resultpenguin.html?roomID=" + roomID;
 }
 
