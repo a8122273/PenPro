@@ -11,12 +11,14 @@
         osql.requireLogin();
         var me;
         var roomID = osql.getParam('roomID');
+        var userID = osql.getParam('userID');
 
         $(document).ready(
             async function () {
                 me = await osql.getMe();
                 document.getElementById('firstname').innerHTML = me.fname + ' ' + me.lname
-
+                inputPenguin()
+                setInterval(inputPenguin, 2000);
             });
         window.addEventListener('load', function () {
             showHints();

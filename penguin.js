@@ -20,35 +20,54 @@ async function showHints() {
     document.getElementById('hints').innerHTML = html;
 }
 
-var html = '';
-html = html + `<img src="image/leg.png" width="160" height="100" alt="サンプル画像"><br>`;
-html = html + '右足のx座標 ' + `<input type = "text" id = "x_part1_1">`;
-html = html + '右足のy座標' + `<input type = "text" id = "y_part1_1">` + '<br>';
-html = html + `<img src="image/leg.png" width="160" height="100" alt="サンプル画像 "><br>`;
-html = html + '左足のx座標' + ` <input type = "text" id = "x_part2_1">`;
-html = html + '左足のy座標 ' + `<input type = "text" id = "y_part2_1"> ` + '<br>';
-html = html + `<img src="image/rightarm.png" width="150" height="150" alt="サンプル画像 "><br>`;
-html = html + '右腕のx座標 ' + `<input type = "text" id = "x_part3_1">`;
-html = html + '右腕のy座標' + ` <input type = "text" id = "y_part3_1">` + ' <br>';
-html = html + `<img src="image/leftarm.png" width="150" height="150" alt="サンプル画像 "><br>`;
-html = html + '左腕のx座標 ' + `<input type = "text" id = "x_part1_2">`;
-html = html + '左腕のy座標 ' + `<input type = "text" id = "y_part1_2">` + ' <br>';
-html = html + `<img src="image/eye.png" width="100" height="90" alt="サンプル画像 "><br>`;
-html = html + '右目のx座標 ' + `<input type = "text" id = "x_part2_2">`;
-html = html + '右目のy座標 ' + `<input type = "text" id = "y_part2_2">` + ' <br>';
-html = html + `<img src="image/eye.png" width="100" height="90" alt="サンプル画像 "><br>`;
-html = html + '左目のx座標 ' + `<input type = "text" id = "x_part3_2">`;
-html = html + '左目のy座標 ' + `<input type = "text" id = "y_part3_2"> ` + '<br>';
-html = html + `<img src="image/mouth.png" width="200" height="200" alt="サンプル画像 ">` + '<br>';
-html = html + '口のx座標' + ` <input type = "text" id = "x_part1_3">`;
-html = html + '口のy座標 ' + `<input type = "text" id = "y_part1_3"> ` + '<br>';
-html = html + `<img src="image/body.png" width="180" height="200" alt="サンプル画"><br>`;
-html = html + '体のx座標' + `<input type="text" id="x_part2_3">`;
-html = html + '体のy座標' + `<input type="text" id="y_part2_3">` + '<br>';
-html = html + `<img src="image/face.png" width="200" height="125" alt="サンプル画像 "><br>`;
-html = html + '顔のx座標' + `<input type="text" id="x_part3_3">`;
-html = html + '顔のy座標' + `<input type="text" id="y_part3_3">` + '<br>';
-document.getElementById('pingus').innerHTML = html;
+async function inputPenguin() {
+    var sql = `select * from Rooms where roomID = '${roomID}';`;
+    var room_objects = await osql.connect(sql);
+    var sql2 = `select * from Participation where roomID = '${roomID}' AND userID = '${me.id}';`;
+    var participation_objects = await osql.connect(sql2);
+    var html = '';
+    if (room_objects[0].turn == 1) {
+        if (participation_objects[0].orders == 1) {
+            html = html + `<img src="image/leg.png" width="160" height="100" alt="サンプル画像"><br>`;
+            html = html + '右足のx座標 ' + `<input type = "text" id = "x_part1_1">`;
+            html = html + '右足のy座標' + `<input type = "text" id = "y_part1_1">` + '<br>';
+            html = html + `<img src="image/leg.png" width="160" height="100" alt="サンプル画像 "><br>`;
+            html = html + '左足のx座標' + ` <input type = "text" id = "x_part2_1">`;
+            html = html + '左足のy座標 ' + `<input type = "text" id = "y_part2_1"> ` + '<br>';
+            html = html + `<img src="image/rightarm.png" width="150" height="150" alt="サンプル画像 "><br>`;
+            html = html + '右腕のx座標 ' + `<input type = "text" id = "x_part3_1">`;
+            html = html + '右腕のy座標' + ` <input type = "text" id = "y_part3_1">` + ' <br>';
+            html = html + `<img src="image/leftarm.png" width="150" height="150" alt="サンプル画像 "><br>`;
+            html = html + '左腕のx座標 ' + `<input type = "text" id = "x_part1_2">`;
+            html = html + '左腕のy座標 ' + `<input type = "text" id = "y_part1_2">` + ' <br>';
+            html = html + `<img src="image/eye.png" width="100" height="90" alt="サンプル画像 "><br>`;
+            html = html + '右目のx座標 ' + `<input type = "text" id = "x_part2_2">`;
+            html = html + '右目のy座標 ' + `<input type = "text" id = "y_part2_2">` + ' <br>';
+        } else {
+            html = html + '他の人が入力中です';
+        }
+    } else if (room_objects[0].turn == 2) {
+        if (participation_objects[0].orders == 1) {
+            html = html + '他の人が入力中です';
+
+        } else {
+            html = html + `<img src="image/eye.png" width="100" height="90" alt="サンプル画像 "><br>`;
+            html = html + '左目のx座標 ' + `<input type = "text" id = "x_part3_2">`;
+            html = html + '左目のy座標 ' + `<input type = "text" id = "y_part3_2"> ` + '<br>';
+            html = html + `<img src="image/mouth.png" width="200" height="200" alt="サンプル画像 ">` + '<br>';
+            html = html + '口のx座標' + ` <input type = "text" id = "x_part1_3">`;
+            html = html + '口のy座標 ' + `<input type = "text" id = "y_part1_3"> ` + '<br>';
+            html = html + `<img src="image/body.png" width="180" height="200" alt="サンプル画"><br>`;
+            html = html + '体のx座標' + `<input type="text" id="x_part2_3">`;
+            html = html + '体のy座標' + `<input type="text" id="y_part2_3">` + '<br>';
+            html = html + `<img src="image/face.png" width="200" height="125" alt="サンプル画像 "><br>`;
+            html = html + '顔のx座標' + `<input type="text" id="x_part3_3">`;
+            html = html + '顔のy座標' + `<input type="text" id="y_part3_3">` + '<br>';
+
+        }
+    }
+    document.getElementById('pingus').innerHTML = html;
+}
 
 
 async function buttonMakePressed() {
