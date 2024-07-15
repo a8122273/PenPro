@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -14,12 +15,7 @@
         $(document).ready(
             async function () {
                 me = await osql.getMe();
-                document.getElementById('firstname').innerHTML = me.fname + ' ' + me.lname;
-
-                var sql = `select * from Rooms where roomID = '${roomID}';`;
-                var objects = await osql.connect(sql);
-                await makePenguin();
-                setInterval(makePenguin, 2000);
+                document.getElementById('firstname').innerHTML = me.fname + ' ' + me.lname
 
             });
         window.addEventListener('load', function () {
@@ -27,154 +23,25 @@
         })
 
 
-        var status = "false";
-        function buttonMakePressed() {
-            location.href = "resultpenguin.html?roomID=" + roomID;
-        }
-        // async function getPenguin() {
-        // var x_rightleg = document.getElementById('x_rightleg').value;
-        // var y_rightleg = document.getElementById('y_rightleg').value;
-        // var x_leftleg = document.getElementById('x_leftleg').value;
-        // var y_leftleg = document.getElementById('y_leftleg').value;
-        // var x_rightarm = document.getElementById('x_rightarm').value;
-        // var y_rightarm = document.getElementById('y_rightarm').value;
-        // var x_leftarm = document.getElementById('x_leftarm').value;
-        // var y_leftarm = document.getElementById('y_leftarm').value;
-        // var x_righteye = document.getElementById('x_righteye').value;
-        // var y_righteye = document.getElementById('y_righteye').value;
-        // var x_lefteye = document.getElementById('x_lefteye').value;
-        // var y_lefteye = document.getElementById('y_lefteye').value;
-        // var x_mouth = document.getElementById('x_mouth').value;
-        // var y_mouth = document.getElementById('y_mouth').value;
-        // var x_body = document.getElementById('x_body').value;
-        // var y_body = document.getElementById('y_body').value;
-        // var x_face = document.getElementById('x_face').value;
-        // var y_face = document.getElementById('y_face').value;
-        //     //var sql = `insert into Locations (x_rightleg, y_rightleg, x_leftleg, y_leftleg, x_rightarm, y_rightarm) values ('${x_rightleg}', '${y_rightleg}', '${x_leftleg}', '${y_leftleg}', '${x_rightarm}', '${y_rightarm}');`;
-        //     await osql.connect(sql);
-        //     var sql2 = `insert into Locations (x_leftarm, y_leftarm,x_righteye,y_righteye,x_lefteye,y_lefteye) values ('${x_leftarm}', '${y_leftarm}','${x_righteye}','${y_righteye}','${x_lefteye}','${y_lefteye}');`;
-        //     await osql.connect(sql2);
-        //     var sql3 = `insert into Locations (x_mouth, y_mouth, x_body, y_body, x_face, y_face) values ('${x_mouth}', '${y_mouth}', '${x_body}', '${y_body}', '${x_face}', '${y_face}');`;
-        //     await osql.connect(sql3);
-        // }
 
-        //     status = blank_message();
 
-        //     if (status == "false") {
-        //         window.alert("全ての項目を入力してください");
-        //     }
-        //     else {
-
-        function blank_message() {
-            if (document.getElementById('x_rightleg').value == "" || document.getElementById('y_rightleg').value == "" || document.getElementById('x_leftleg').value == "" || document.getElementById('y_leftleg').value == "" || document.getElementById('x_rightarm').value == "" || document.getElementById('y_rightarm').value == "" || document.getElementById('x_leftarm').value == "" || document.getElementById('y_leftarm').value == "" || document.getElementById('x_righteye').value == "" || document.getElementById('y_righteye').value == "" || document.getElementById('x_lefteye').value == "" || document.getElementById('y_lefteye').value == "" || document.getElementById('x_mouth').value == "" || document.getElementById('y_mouth').value == "" || document.getElementById('x_body').value == "" || document.getElementById('y_body').value == "" || document.getElementById('x_face').value == "" || document.getElementById('y_face').value == "") {
-                status = "false";
-            }
-            else {
-                status = "true";
-            }
-            return status;
-        }
-
-        async function showHints() {
-            var sql = `select count(status) from Todos where roomID = '${roomID}' and status = TRUE;`;
-            var status_objects = await osql.connect(sql);
-            console.log(status_objects);
-            var count = Math.floor(parseInt(status_objects[0]['count(status)']) / 2);
-            console.log(count);
-            var sql2 = `select * from Hints;`;
-            var hint_objects = await osql.connect(sql2);
-            var html = '';
-            html = html + '<table border="1">';
-            for (var i = 0; i < count; i++) {
-                var hint = hint_objects[i];
-                html = html + '<tr>';
-                html = html + `<td>${hint.hintID}</td>`;
-                html = html + `<td>${hint.hint}</td>`;
-                html = html + '</tr>';
-            }
-            html = html + '</table>';
-            document.getElementById('hints').innerHTML = html;
-        }
-
-        //var count_turn = 0;
-        async function makePenguin() {
-            var sql = `select * from Participation where roomID = '${roomID}' and userID='${me.id}';`;
-            var orders_objects = await osql.connect(sql);
-            var sql2 = `select * from Rooms where roomID = '${roomID}';`;
-            var room_objects = await osql.connect(sql2);
-            var count_turn = room_objects[0].turn;
-            var html = '';
-            if (count_turn == orders_objects[0].orders) {
-                if (count_turn == 1 && orders_objects[0].orders == 1) {
-                    html = html + `<img src="image/leg.png" width="160" height="100" alt="サンプル画像"><br>`;
-                    html = html + '右足のx座標 ' + `<input type = "text" id = "x_part1">`;
-                    html = html + '右足のy座標' + `<input type = "text" id = "y_part1">` + '<br>';
-                    html = html + `<img src="image/leg.png" width="160" height="100" alt="サンプル画像 "><br>`;
-                    html = html + '左足のx座標' + ` <input type = "text" id = "x_part2">`;
-                    html = html + '左足のy座標 ' + `<input type = "text" id = "y_part2"> ` + '<br>';
-                    html = html + `<img src="image/rightarm.png" width="150" height="150" alt="サンプル画像 "><br>`;
-                    html = html + '右腕のx座標 ' + `<input type = "text" id = "x_part3">`;
-                    html = html + '右腕のy座標' + ` <input type = "text" id = "y_part3">` + ' <br>';
-
-                }
-                else if (count_turn == 2 && orders_objects[0].orders == 2) {
-                    html = html + `<img src="image/leftarm.png" width="150" height="150" alt="サンプル画像 "><br>`;
-                    html = html + '左腕のx座標 ' + `<input type = "text" id = "x_part1">`;
-                    html = html + '左腕のy座標 ' + `<input type = "text" id = "y_part1">` + ' <br>';
-                    html = html + `<img src="image/eye.png" width="100" height="90" alt="サンプル画像 "><br>`;
-                    html = html + '右目のx座標 ' + `<input type = "text" id = "x_part2">`;
-                    html = html + '右目のy座標 ' + `<input type = "text" id = "y_part2">` + ' <br>';
-                    html = html + `<img src="image/eye.png" width="100" height="90" alt="サンプル画像 "><br>`;
-                    html = html + '左目のx座標 ' + `<input type = "text" id = "x_part3">`;
-                    html = html + '左目のy座標 ' + `<input type = "text" id = "y_part3"> ` + '<br>';
-
-                }
-                else if (count_turn == 3 && orders_objects[0].orders == 3) {
-                    html = html + `<img src="image/mouth.png" width="200" height="200" alt="サンプル画像 ">` + '<br>';
-                    html = html + '口のx座標' + ` <input type = "text" id = "x_part1">`;
-                    html = html + '口のy座標 ' + `<input type = "text" id = "y_part1"> ` + '<br>';
-                    html = html + `<img src="image/body.png" width="180" height="200" alt="サンプル画"><br>`;
-                    html = html + '体のx座標' + `<input type="text" id="x_part2">`;
-                    html = html + '体のy座標' + `<input type="text" id="y_part2">` + '<br>';
-                    html = html + `<img src="image/face.png" width="200" height="125" alt="サンプル画像 "><br>`;
-                    html = html + '顔のx座標' + `<input type="text" id="x_part3">`;
-                    html = html + '顔のy座標' + `<input type="text" id="y_part3">` + '<br>';
-                }
-
-            } else {
-                html = html + '他のメンバーが記入中です';
-            }
-            document.getElementById('pingus').innerHTML = html;
-            //getPenguin();
-        }
-
-        var partslist = [];
-        function buttonPressed() {
-            var sql = `update Rooms set turn = turn + 1 where roomID = '${roomID}';`;
-            var x_part1 = document.getElementById('x_part1').value;
-            var y_part1 = document.getElementById('y_part1').value;
-            var x_part2 = document.getElementById('x_part2').value;
-            var y_part2 = document.getElementById('y_part2').value;
-            var x_part3 = document.getElementById('x_part3').value;
-            var y_part3 = document.getElementById('y_part3').value;
-            partslist.push(x_part1, y_part1);
-            partslist.push(x_part2, y_part2);
-            partslist.push(x_part3, y_part3);
-            console.log(partslist);
-        }
 
     </script>
 </head>
 
 <body>
     <h1>ペンギンを作ろう</h1>
+    <div style="text-align: right;">
+        ようこそ<span id="lastname"></span> <span id="firstname"></span>さん
+        <a href="index.html">top</a>
+    </div>
     <p>見本（サイズは適当）</p>
     <img src="image/pingu_sample.png" width="200" height="200" alt="サンプル画像 "><br>
     <p>ゲットしたヒントを参考にしてペンギンを描こう！</p>
-    <div id="hints"></div>
-    <div id="pingus"></div>
-    <button onclick="buttonPressed()">次へ</button>
+    <div id='hints'></div>
+    <div id='pingus'></div>
     <button onclick="buttonMakePressed()">作成</button>
+    <script src="penguin.js"></script>
 </body>
 
 </html>
