@@ -34,8 +34,10 @@
                     }
                 }
                 if (hitori == 0) {
-                    var sql3 = `insert into Participation (userID, roomID, orders) values ('${me.id}', '${roomID}','${length}');`;
-                    var objects3 = await osql.connectInsert(sql3);
+                    if (objects2.length <= 2) {
+                        var sql3 = `insert into Participation (userID, roomID, orders) values ('${me.id}', '${roomID}','${length}');`;
+                        var objects3 = await osql.connectInsert(sql3);
+                    }
                 }
 
                 var room = objects[0];
