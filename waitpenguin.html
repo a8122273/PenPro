@@ -25,10 +25,10 @@
         async function waitturn() {
             var sql = `select * from Rooms where roomID = ${roomID};`;
             var room = await osql.connect(sql);
-            if (room.turn == 2) {
+            if (room[0].turn == 2) {
                 location.href = `penguin.html?roomID=${roomID}&userID=${me.id}`;
             }
-            else if (room.turn == 3) {
+            else if (room[0].turn == 3) {
                 location.href = `resultpenguin.html?roomID=${roomID}`;
             }
         }

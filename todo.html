@@ -100,6 +100,7 @@
             var sql = `select * from Participation where roomID = '${roomID}' and userID = '${me.id}';`;
             var penguin_objects = await osql.connect(sql);
             if (penguin_objects[0].orders == 2) {
+                window.alert('ペンギンは一回しか描けません。本当にいいですか？');
                 location.href = `waitpenguin.html`;
             }
             else {
