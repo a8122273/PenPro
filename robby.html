@@ -26,8 +26,7 @@
             var name = document.getElementById('roomname').value;
             var sql = `insert into Rooms (roomname,turn) values('${name}',1);`;
             var roomId = await osql.connectInsert(sql);
-            console.log(roomId);
-
+            //console.log(roomId);
             refreshRooms();
         }
 
@@ -43,7 +42,7 @@
                 var object = objects[i];
                 html = html + `<td>${object.roomID}</td>`;
                 html = html + `<td>${object.roomname}</td>`;
-                console.log(objects2[i]);
+                //console.log(objects2[i]);
                 if (objects2[i] == undefined) {
                     html = html + `<td><a href="room.html?roomID=${object.roomID}">入室</a></td>`;
                 }
