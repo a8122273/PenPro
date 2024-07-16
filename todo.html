@@ -101,7 +101,7 @@
             var penguin_objects = await osql.connect(sql);
             if (penguin_objects[0].orders == 2) {
                 window.alert('ペンギンは一回しか描けません。本当にいいですか？');
-                location.href = `waitpenguin.html`;
+                location.href = `waitpenguin.html?roomID=${roomID}`;
             }
             else {
                 window.alert('ペンギンは一回しか描けません。本当にいいですか？');
