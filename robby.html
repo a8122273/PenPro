@@ -33,17 +33,18 @@
         async function refreshRooms() {
             var sql = 'select * from Rooms;';
             var objects = await osql.connect(sql);
-            var sql2 = `select * from Participation  where orders = '2';`;
-            var objects2 = await osql.connect(sql2);
+
             var html = '';
             html = html + '<table border="1">';
             for (var i = 0; i < objects.length; i++) {
+                var sql2 = `select * from Participation where roomID = ${i + 1} and orders = '2';`;
+                var objects2 = await osql.connect(sql2);
                 html = html + '<tr>';
                 var object = objects[i];
                 html = html + `<td>${object.roomID}</td>`;
                 html = html + `<td>${object.roomname}</td>`;
-                //console.log(objects2[i]);
-                if (objects2[i] == undefined) {
+                console.log(objects2[0]);
+                if (objects2[0] == undefined) {
                     html = html + `<td><a href="room.html?roomID=${object.roomID}">入室</a></td>`;
                 }
                 else {
