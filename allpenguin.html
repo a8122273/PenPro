@@ -31,10 +31,13 @@
             var pingu_objects = await osql.connect(sql);
             var html = '';
 
+
             for (var i = 0; i < pingu_objects.length; i++) {
                 var pingu_object = pingu_objects[i];
+                var sql2 = `select * from Rooms where roomID = ${pingu_object.roomID};`;
+                var roomname = await osql.connect(sql2);
                 var canvasID = 'pinguCanvas_' + pingu_object.roomID;
-                html += pingu_object.roomID + '<br>';
+                html += roomname[0].roomname + '<br>';
                 html += '<canvas id="' + canvasID + '" width="500" height="500" style="border: solid 1px;"></canvas>';
                 html += '<br>';
                 html = html + '<hr>';
@@ -48,6 +51,7 @@
         function makePingu(pingu_object, canvasID) {
             var canvas = document.getElementById('pinguCanvas_' + pingu_object.roomID);
             var ctx = canvas.getContext('2d');
+
 
             // 背景を白く塗る
             ctx.clearRect(0, 0, 500, 500);
