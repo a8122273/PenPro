@@ -23,7 +23,7 @@
             showHints();
         })
         async function waitturn() {
-            var sql = `select * from Rooms where roomID = ${roomID};`;
+            var sql = `select * from Rooms where roomID = '${roomID}';`;
             var room = await osql.connect(sql);
             console.log(room[0].turn)
             if (room[0].turn == 2) {
