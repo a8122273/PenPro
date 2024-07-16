@@ -47,7 +47,11 @@
                 html = html + `<td>${i + 1}</td>`;
                 html = html + `<td>${todo_object.username}</td>`;
                 html = html + `<td>${todo_object.todo}</td>`;
-                html = html + `<td><button onclick="checktask('${todo_object.username}','${todo_object.todo}')">完了</button></td>`;
+                if (todo_object.status == 1) {
+                    html = html + `<td>完了</td>`;
+                } else {
+                    html = html + `<td><button id="${todo_object.todoID}" onclick="checktask('${todo_object.username}','${todo_object.todo}','${todo_object.todoID}')">完了</button></td>`;
+                }
                 html = html + `<td><button onclick="deleteTask('${todo_object.username}','${todo_object.todo}')">削除</button></td>`;
                 //html = html + `<td><a href="todo.html?roomID=${todo_object.roomID}"></a></td>`;
                 html = html + '</tr>';
@@ -55,12 +59,12 @@
             html = html + '</table>';
             document.getElementById('todo').innerHTML = html;
         }
-        async function checktask(username, todo) {
+        async function checktask(username, todo, todoID) {
             //var task = document.getElementById('task').value;
-            console.log(username);
+            console.log(todoID);
             var sql = `update Todos set status = TRUE where roomID = '${roomID}' and username = '${username}' and todo = '${todo}'`;
             await osql.connect(sql);
-            console.log(sql);
+            //document.getElementById(todoID).disabled = true;
             await showHints();
 
         }
@@ -75,9 +79,9 @@
         async function showHints() {
             var sql = `select count(status) from Todos where roomID = '${roomID}' and status = TRUE;`;
             var status_objects = await osql.connect(sql);
-            console.log(status_objects);
+            //console.log(status_objects);
             var count = Math.floor(parseInt(status_objects[0]['count(status)']) / 2);
-            console.log(count);
+            //console.log(count);
             var sql2 = `select * from Hints;`;
             var hint_objects = await osql.connect(sql2);
             var html = '';

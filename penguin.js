@@ -26,48 +26,49 @@ async function inputPenguin() {
     var sql2 = `select * from Participation where roomID = '${roomID}' AND userID = '${me.id}';`;
     var participation_objects = await osql.connect(sql2);
     var html = '';
-    if (room_objects[0].turn == 1) {
-        if (participation_objects[0].orders == 1) {
-            html = html + `<img src="image/leg.png" width="160" height="100" alt="サンプル画像"><br>`;
-            html = html + '右足のx座標 ' + `<input type = "text" id = "x_part1_1">`;
-            html = html + '右足のy座標' + `<input type = "text" id = "y_part1_1">` + '<br>';
-            html = html + `<img src="image/leg.png" width="160" height="100" alt="サンプル画像 "><br>`;
-            html = html + '左足のx座標' + ` <input type = "text" id = "x_part2_1">`;
-            html = html + '左足のy座標 ' + `<input type = "text" id = "y_part2_1"> ` + '<br>';
-            html = html + `<img src="image/rightarm.png" width="150" height="150" alt="サンプル画像 "><br>`;
-            html = html + '右腕のx座標 ' + `<input type = "text" id = "x_part3_1">`;
-            html = html + '右腕のy座標' + ` <input type = "text" id = "y_part3_1">` + ' <br>';
-            html = html + `<img src="image/leftarm.png" width="150" height="150" alt="サンプル画像 "><br>`;
-            html = html + '左腕のx座標 ' + `<input type = "text" id = "x_part1_2">`;
-            html = html + '左腕のy座標 ' + `<input type = "text" id = "y_part1_2">` + ' <br>';
-            html = html + `<img src="image/eye.png" width="100" height="90" alt="サンプル画像 "><br>`;
-            html = html + '右目のx座標 ' + `<input type = "text" id = "x_part2_2">`;
-            html = html + '右目のy座標 ' + `<input type = "text" id = "y_part2_2">` + ' <br>';
-            html = html + `<button onclick="inputlist()">次へ</button>`;
+    // if (room_objects[0].turn == 1) {
+    if (participation_objects[0].orders == 1) {
+        html = html + `<img src="image/leg.png" width="160" height="100" alt="サンプル画像"><br>`;
+        html = html + '右足のx座標 ' + `<input type = "text" id = "x_part1_1">`;
+        html = html + '右足のy座標' + `<input type = "text" id = "y_part1_1">` + '<br>';
+        html = html + `<img src="image/leg.png" width="160" height="100" alt="サンプル画像 "><br>`;
+        html = html + '左足のx座標' + ` <input type = "text" id = "x_part2_1">`;
+        html = html + '左足のy座標 ' + `<input type = "text" id = "y_part2_1"> ` + '<br>';
+        html = html + `<img src="image/rightarm.png" width="150" height="150" alt="サンプル画像 "><br>`;
+        html = html + '右腕のx座標 ' + `<input type = "text" id = "x_part3_1">`;
+        html = html + '右腕のy座標' + ` <input type = "text" id = "y_part3_1">` + ' <br>';
+        html = html + `<img src="image/leftarm.png" width="150" height="150" alt="サンプル画像 "><br>`;
+        html = html + '左腕のx座標 ' + `<input type = "text" id = "x_part1_2">`;
+        html = html + '左腕のy座標 ' + `<input type = "text" id = "y_part1_2">` + ' <br>';
+        html = html + `<img src="image/eye.png" width="100" height="90" alt="サンプル画像 "><br>`;
+        html = html + '右目のx座標 ' + `<input type = "text" id = "x_part2_2">`;
+        html = html + '右目のy座標 ' + `<input type = "text" id = "y_part2_2">` + ' <br>';
+        html = html + `<button onclick="inputlist()">次へ</button>`;
 
-        } else {
-            html = html + '他の人が入力中です';
-        }
-    } else if (room_objects[0].turn == 2) {
-        if (participation_objects[0].orders == 1) {
-            html = html + '他の人が入力中です';
+        // } else {
+        //     html = html + '他の人が入力中です';
+        // }
+        // } else if (room_objects[0].turn == 2) {
+        // if (participation_objects[0].orders == 1) {
+        //     html = html + '他の人が入力中です';
 
-        } else {
-            html = html + `<img src="image/eye.png" width="100" height="90" alt="サンプル画像 "><br>`;
-            html = html + '左目のx座標 ' + `<input type = "text" id = "x_part3_2">`;
-            html = html + '左目のy座標 ' + `<input type = "text" id = "y_part3_2"> ` + '<br>';
-            html = html + `<img src="image/mouth.png" width="200" height="200" alt="サンプル画像 ">` + '<br>';
-            html = html + '口のx座標' + ` <input type = "text" id = "x_part1_3">`;
-            html = html + '口のy座標 ' + `<input type = "text" id = "y_part1_3"> ` + '<br>';
-            html = html + `<img src="image/body.png" width="180" height="200" alt="サンプル画"><br>`;
-            html = html + '体のx座標' + `<input type="text" id="x_part2_3">`;
-            html = html + '体のy座標' + `<input type="text" id="y_part2_3">` + '<br>';
-            html = html + `<img src="image/face.png" width="200" height="125" alt="サンプル画像 "><br>`;
-            html = html + '顔のx座標' + `<input type="text" id="x_part3_3">`;
-            html = html + '顔のy座標' + `<input type="text" id="y_part3_3">` + '<br>';
-            html = html + `<button onclick="buttonMakePressed()">次へ</button>`;
-        }
-    } else if (room_objects[0].turn == 3) {
+        // } 
+    } else if (participation_objects[0].orders == 2) {
+        html = html + `<img src="image/eye.png" width="100" height="90" alt="サンプル画像 "><br>`;
+        html = html + '左目のx座標 ' + `<input type = "text" id = "x_part3_2">`;
+        html = html + '左目のy座標 ' + `<input type = "text" id = "y_part3_2"> ` + '<br>';
+        html = html + `<img src="image/mouth.png" width="200" height="200" alt="サンプル画像 ">` + '<br>';
+        html = html + '口のx座標' + ` <input type = "text" id = "x_part1_3">`;
+        html = html + '口のy座標 ' + `<input type = "text" id = "y_part1_3"> ` + '<br>';
+        html = html + `<img src="image/body.png" width="180" height="200" alt="サンプル画"><br>`;
+        html = html + '体のx座標' + `<input type="text" id="x_part2_3">`;
+        html = html + '体のy座標' + `<input type="text" id="y_part2_3">` + '<br>';
+        html = html + `<img src="image/face.png" width="200" height="125" alt="サンプル画像 "><br>`;
+        html = html + '顔のx座標' + `<input type="text" id="x_part3_3">`;
+        html = html + '顔のy座標' + `<input type="text" id="y_part3_3">` + '<br>';
+        html = html + `<button onclick="buttonMakePressed()">次へ</button>`;
+    }
+    else if (room_objects[0].turn == 3) {
         location.href = "resultpenguin.html?roomID=" + roomID;
     }
     document.getElementById('pingus').innerHTML = html;
@@ -89,7 +90,7 @@ async function inputlist() {
     var y_righteye = document.getElementById('y_part2_2').value;
     var sql = `insert into Locations (roomID,x_rightleg,y_rightleg,x_leftleg,y_leftleg,x_rightarm,y_rightarm,x_leftarm,y_leftarm,x_righteye,y_righteye,x_lefteye,y_lefteye,x_mouth,y_mouth,x_body,y_body,x_face,y_face) values('${roomID}', '${x_rightleg}', '${y_rightleg}', '${x_leftleg}', '${y_leftleg}', '${x_rightarm}', '${y_rightarm}', '${x_leftarm}', '${y_leftarm}', '${x_righteye}', '${y_righteye}','0','0','0','0','0','0','0','0');`;
     await osql.connect(sql);
-    inputPenguin();
+    location.href = "waitpenguin.html";
 }
 
 

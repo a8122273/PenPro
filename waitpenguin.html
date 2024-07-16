@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="osql.js"></script>
+
+    <script>
+        osql.requireLogin();
+        var me;
+        var roomID = osql.getParam('roomID');
+        var userID = osql.getParam('userID');
+
+        $(document).ready(
+            async function () {
+                me = await osql.getMe();
+                document.getElementById('firstname').innerHTML = me.fname + ' ' + me.lname;
+                setInterval(waitturn, 2000);
+            });
+        window.addEventListener('load', function () {
+            showHints();
+        })
+        async function waitturn() {
+            var sql = `select * from Rooms where roomID = ${roomID};`;
+            var room = await osql.connect(sql);
+            if (room.turn == 2) {
+                location.href = `penguin.html?roomID=${roomID}&userID=${me.id}`;
+            }
+            else if (room.turn == 3) {
+                location.href = `resultpenguin.html?roomID=${roomID}`;
+            }
+        }
+
+
+
+
+
+    </script>
+</head>
+
+<body>
+    <h1>ペンギンを作ろう</h1>
+    <div style="text-align: right;">
+        ようこそ<span id="lastname"></span> <span id="firstname"></span>さん
+        <a href="index.html">top</a>
+    </div>
+    <p>見本（サイズは適当）</p>
+    <img src="image/pingu_sample.png" width="200" height="200" alt="サンプル画像 "><br>
+    <p>ゲットしたヒントを参考にしてペンギンを描こう！</p>
+    <div id='hints'></div>
+    <h2>他の人が入力中です。しばらくお待ちください</h2>
+
+    <script src="penguin.js"></script>
+</body>
+
+</html>
