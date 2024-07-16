@@ -8,6 +8,7 @@
 
     <script type="text/javascript" src="jquery.min.js"></script>
     <script type="text/javascript" src="osql.js"></script>
+    <link rel="stylesheet" href="penguin.css">
 
     <script>
         //メモroomIDを表示しているが後でroomnameが表示されるようにしたい
@@ -37,7 +38,7 @@
                 var sql2 = `select * from Rooms where roomID = ${pingu_object.roomID};`;
                 var roomname = await osql.connect(sql2);
                 var canvasID = 'pinguCanvas_' + pingu_object.roomID;
-                html += roomname[0].roomname + '<br>';
+                html += '<h2>' + roomname[0].roomname + '</h2>' + '<br>';
                 html += '<canvas id="' + canvasID + '" width="500" height="500" style="border: solid 1px;"></canvas>';
                 html += '<br>';
                 html = html + '<hr>';
@@ -127,8 +128,8 @@
 
 <body>
     <h1>みんなのペンギン</h1>
-    <div style="text-align: right;">
-        ようこそ<span id="firstname"></span>さん
+    <div id="right">
+        ようこそ<span id="lastname"></span> <span id="firstname"></span>さん
         <a href="index.html">top</a>
     </div>
     <hr>
