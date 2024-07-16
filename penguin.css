@@ -70,7 +70,16 @@ table {
     max-width: 800px;
 }
 
-table,
+/* テーブル */
+table {
+    margin: 20px auto;
+    border-collapse: collapse;
+    width: 80%;
+    max-width: 800px;
+    background-color: #ffffff;
+    /* テーブルの背景色を白に設定 */
+}
+
 th,
 td {
     border: 1px solid #0277bd;
