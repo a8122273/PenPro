@@ -97,7 +97,7 @@
             document.getElementById('hints').innerHTML = html;
         }
         async function makePenguin() {
-            var sql = `select from Participation where roomID = '${roomID}' and userID = '${me.id}';`;
+            var sql = `select * from Participation where roomID = '${roomID}' and userID = '${me.id}';`;
             var penguin_objects = await osql.connect(sql);
             if (penguin_objects[0].orders == 2) {
                 location.href = `waitpenguin.html`;
