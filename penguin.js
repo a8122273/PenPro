@@ -90,7 +90,7 @@ async function inputlist() {
     var y_righteye = document.getElementById('y_part2_2').value;
     var sql = `insert into Locations (roomID,x_rightleg,y_rightleg,x_leftleg,y_leftleg,x_rightarm,y_rightarm,x_leftarm,y_leftarm,x_righteye,y_righteye,x_lefteye,y_lefteye,x_mouth,y_mouth,x_body,y_body,x_face,y_face) values('${roomID}', '${x_rightleg}', '${y_rightleg}', '${x_leftleg}', '${y_leftleg}', '${x_rightarm}', '${y_rightarm}', '${x_leftarm}', '${y_leftarm}', '${x_righteye}', '${y_righteye}','0','0','0','0','0','0','0','0');`;
     await osql.connect(sql);
-    location.href = "waitpenguin.html?roomID=" + roomID;
+    location.href = `waitpenguin.html?roomID=${roomID}`;
 }
 
 
@@ -107,7 +107,7 @@ async function buttonMakePressed() {
     await osql.connect(sql);
     var sql2 = `update Rooms set turn = 3 where roomID = '${roomID}';`;
     await osql.connect(sql2);
-    location.href = "resultpenguin.html?roomID=" + roomID;
+    location.href = `resultpenguin.html?roomID=${roomID}`;
     inputPenguin();
 }
 
